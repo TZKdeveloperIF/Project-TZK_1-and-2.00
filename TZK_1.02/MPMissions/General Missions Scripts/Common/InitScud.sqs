@@ -1,0 +1,23 @@
+; args [object, type, si, gi]
+
+_Scud = _this select 0
+_type = _this select 1
+_si = _this select 2
+
+playsound "NuclearMissileReady_xj101"
+? !(local LocalServerObject) : exit
+
+#WaitingIgnition
+~1
+? !(alive _Scud) : exit
+? (scudState _Scud < 3) : goto "WaitingIgnition"
+
+[_Scud, _type, _si, 0] exec "Common\SendScudOperation.sqs"
+_this exec "Server\WaitingScudReload.sqs"
+
+_destination = ((wpCO select _si) select 8)
+_failed = ( (_destination select 0) == -1 )
+
+
+~25
+if !(_failed) then { [_destination] exec "Server\ScudFired.sqs" }

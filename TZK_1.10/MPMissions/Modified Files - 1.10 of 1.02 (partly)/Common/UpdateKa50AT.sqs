@@ -1,0 +1,22 @@
+; args: [vehicle, type, si]
+
+
+_v = _this select 0
+
+~1
+? !(alive _v) : exit
+
+#start
+~1
+_Driver = Driver _v
+?!(alive _v):exit
+?!(alive _Driver):goto "start"
+	
+_v removeEventHandler ["hit",0];
+_v addEventHandler ["hit",{_this exec "Common\Event ExtraKa50ATDamage.sqs"}]
+#start2
+~1
+_Driver = Driver _v
+?!(alive _v):exit
+?!(alive _Driver):goto "start"
+goto "start2"

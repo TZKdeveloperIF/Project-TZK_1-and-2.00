@@ -1,0 +1,19 @@
+#Start
+
+@(pvScudSide != -1)
+
+_Scud = pvScud
+_value = pvScudSide
+
+pvScud = objNull
+pvScudSide = -1
+
+_type = _value % 250
+_value = (_value - _type) / 250
+_si = _value % 10
+_value = (_value - _si) / 10
+_oper = _value
+
+[_Scud, _type, _si, _oper] exec "Common\ScudOperation.sqs"
+
+goto "Start"

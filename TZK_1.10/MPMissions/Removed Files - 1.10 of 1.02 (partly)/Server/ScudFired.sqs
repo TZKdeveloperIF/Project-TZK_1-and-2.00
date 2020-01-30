@@ -1,0 +1,15 @@
+; args [position]
+
+_pos = _this select 0
+
+_count = 50
+#CreatingLGB
+_prob = random 1
+_distance = [_prob] call funcCalNormalDistribution
+_dir = random 360
+
+_x = "Scud_Cluster_xj103" createvehicle [ ( _pos select 0) + _distance * (sin (_dir)), ( _pos select 1) + _distance * (cos (_dir)), 1000]
+_x setVelocity [0,0,-200]
+
+_count = _count - 1
+? _count > 0 : goto "CreatingLGB"

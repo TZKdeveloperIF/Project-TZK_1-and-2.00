@@ -1,0 +1,98 @@
+; args: [object, new object, si, boolDestruction, boolSecondaryStructure]
+
+_object = _this select 0
+_objectReplacing = _this select 1
+_si = _this select 2
+_bDes = _this select 3
+_bSec = _this select 4
+
+
+
+_index = 0; _count = count(structuresServer)
+#FindStructure
+	_entry = structuresServer select _index
+	_objects = _entry select 0
+	_type = _entry select 1
+	? _object in _objects : goto "ObjectFound"
+	_index = _index + 1
+	? _index < _count : goto "FindStructure"
+	
+; Not found object in structuresServer
+"ERROR: _object not found in structuresServer when structure is to be deleted. It might remain some rubbish unable to clear during the whole game." call fDebugLog
+deleteVehicle _object; exit
+
+#ObjectFound
+? _bSec : goto "SecStructDestroyed"
+? _bDes : goto "Destruction"
+? !isNull _objectReplacing : goto "ReplacePrimaryStructure"
+
+
+#DeleteStructure
+; used in Undo or disappear of ruined primstructure
+	{deleteVehicle _x} foreach _objects
+	goto "Quit"
+
+#SecStructDestroyed
+	{ _x setDamage 1 } foreach _objects
+	~10
+	{deleteVehicle _x} foreach _objects
+	goto "Quit"
+	
+#Destruction
+	{deleteVehicle _x} foreach _objects; [_si, _type] exec "Server\Info\DestructionCompleted.sqs"
+	goto "Quit"	
+
+#ReplacePrimaryStructure
+	_objects set [0, _objectReplacing]
+	[_objects, _type] call funcStructuresServerAdd
+	deleteVehicle _object
+	[_si, _type, _objectReplacing] exec "Common\AddToStructMatrix.sqs"
+	goto "Quit"
+
+	
+#Quit	
+	[_si, _type] exec "Server\SendStructMatrixRemove.sqs"
+	; structuresServer set [_index, 0]
+	exit
+	
+
+
+exit
+; old codes
+
+@!(mutexStructServer)
+mutexStructServer = true
+structuresServer set [_index, [[objNull]]]; {deleteVehicle _x} foreach _objects
+mutexStructServer = false; exit
+
+
+
+? isNull _object: _index = 0; _count = count structuresServer; goto "CleanUpObjNull"
+
+_entry = structuresServer select _index
+_objects = _entry select 0
+? _object in _objects: structuresServer set [_index, [[objNull]]]; mutexStructServer = false; exit
+
+_index = 0; _count = count structuresServer
+#FindStructure
+	_entry = structuresServer select _index
+	_objects = _entry select 0
+	? _object in _objects : goto "ObjectFound"
+	_index = _index + 1
+	? _index < _count : goto "FindStructure"
+
+mutexStructServer = false; exit
+
+#ObjectFound
+structuresServer set [_index, [[objNull]]]; mutexStructServer = false; exit
+
+#CleanUpObjNull
+; used for Undo-operation and object be deleted before executing
+	_entry = structuresServer select _index
+	_objects = _entry select 0
+	; ? dev && !isNull player : player globalChat format["structuresServer cleaning... checking %1",_objects]
+	? isNull (_objects select 0) : structuresServer set [_index, [[objNull]]]
+	_index = _index + 1
+	? _index < _count : goto "CleanUpObjNull"
+	
+mutexStructServer = false; exit

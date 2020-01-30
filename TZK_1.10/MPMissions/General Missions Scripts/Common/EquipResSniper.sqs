@@ -1,0 +1,21 @@
+; args: [unit, type, si]
+
+_unit = _this select 0
+
+~1
+? !(local _unit) || !(alive _unit) : exit
+
+_mags = magazines _unit
+_wpns = weapons _unit
+
+{ _unit removeMagazine _x} foreach _mags
+{ _unit removeWeapon _x} foreach _wpns
+
+{ _unit addMagazine "HandGrenade" } forEach [1,2,3,4,5]
+_unit addMagazine "JAM_E762_5mag"
+_unit addMagazine "JAM_E762_5mag"
+_unit addMagazine "JAM_E762_5mag"
+_unit addMagazine "JAM_E762_5mag"
+_unit addMagazine "JAM_E762_5mag"
+_unit addWeapon "JAM_MosinNag"
+exit

@@ -1,0 +1,19 @@
+; args: [params]
+
+_value = _this select 0
+
+_si = _value % 10
+_value = (_value - _si) / 10
+
+_type = _value
+
+? (siPlayer == siCiv): format["%1 Scud reloaded", sideNames select _si] exec "Player\LogSpectator.sqs"
+
+? (_si == siPlayer): _text = format ["Scud has reloaded."]; hint _text; player sidechat _text 
+ 
+
+(unitsBuilt select _si) set [ _type, -1 + ((unitsBuilt select _si) select _type) ]
+
+;player globalchat format ["multiplierwest = %1 and multipliereast = %2"]
+
+exit

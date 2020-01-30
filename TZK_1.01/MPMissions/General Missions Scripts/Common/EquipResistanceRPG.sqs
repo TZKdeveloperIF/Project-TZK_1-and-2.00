@@ -1,0 +1,58 @@
+; args: [unit, si]
+
+_unit = _this select 0
+_si = _this select 1
+
+
+
+rand = random 4
+num = rand - (rand mod 1)
+
+? num == 0: goto "weapon0"
+? num == 1: goto "weapon1"
+? num == 2: goto "weapon2"
+? num == 3: goto "weapon3"
+
+#weapon0
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "SVDDragunov" } forEach [1,2,3,4]
+  { _unit addMagazine "RPGLauncher" } forEach [1]
+ _unit addWeapon "SVDDragunov"
+ _unit addWeapon "RPGLauncher"
+  exit
+
+#weapon1
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "JahSG551mag_xj101" } forEach [1,2,3,4]
+  { _unit addMagazine "LAWLauncher" } forEach [1]
+ _unit addWeapon "JahSG551_xj101"
+ _unit addWeapon "LAWLauncher"
+  exit
+
+#weapon2
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "M21" } forEach [1,2,3,4]
+  { _unit addMagazine "LAWLauncher" } forEach [1]
+ _unit addWeapon "M21"
+ _unit addWeapon "LAWLauncher"
+  exit
+
+#weapon3
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "mVSSmag_xj101" } forEach [1,2,3,4]
+  { _unit addMagazine "RPGLauncher" } forEach [1]
+ _unit addWeapon "mVSS_xj101"
+ _unit addWeapon "RPGLauncher"
+  exit

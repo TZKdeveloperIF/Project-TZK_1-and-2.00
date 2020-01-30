@@ -1,0 +1,11 @@
+; args: vehicle
+
+_driver = driver _this
+? (isNull _driver): goto "SkipDriver"
+_driver setPos (getPos _this)
+@ _driver == vehicle _driver
+#SkipDriver
+player setPos (getPos _this)
+@ player == vehicle player
+player moveInDriver _this
+? !(isNull _driver): _driver moveInGunner _this

@@ -1,0 +1,10 @@
+; args: [object, causedBy, damage]
+
+_unit = _this select 0
+_causedBy = _this select 1
+_damage = _this select 2
+
+_vehicleType = _causedBy call funcGetUnitTypeFromObject
+? _vehicleType == -1 : exit
+? count ((unitDefs select _vehicleType) select udCrew) == 0 : exit
+_unit setdamage ( [damage _unit + _damage, 1] select (damage _unit + _damage > 1) );

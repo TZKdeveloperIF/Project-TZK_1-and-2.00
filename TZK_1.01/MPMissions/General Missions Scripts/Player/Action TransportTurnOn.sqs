@@ -1,0 +1,10 @@
+; args: [vehicle, unit, idAction]
+
+_vehicle = _this select 0
+_unit = _this select 1
+_id = _this select 2
+
+? !(alive _vehicle): _vehicle removeAction _id; exit
+[_vehicle] exec "Common\SendTransportTurnOn.sqs"
+_vehicle addAction ["Transport Turn Off", "Player\Action TransportTurnOff.sqs"]
+_vehicle removeAction _id

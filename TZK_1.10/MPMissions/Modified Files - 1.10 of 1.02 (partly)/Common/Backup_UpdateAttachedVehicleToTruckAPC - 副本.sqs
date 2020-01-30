@@ -1,0 +1,54 @@
+; args: [vehicle, TruckAPC, index, slot, gi, si]
+
+_vehicle = _this select 0
+_tug = _this select 1
+_tugindex = _this select 2
+_tugslot = _this select 3
+_gi = _this select 4
+_si = _this select 5
+
+? (_tugslot == tsCenter): _attachDir = -180; _attachDist = 15
+
+
+_pos = getPos _vehicle
+_vehicle setPos [-1000 - random 100, -1000 - random 100, 100]
+_vehicle setVelocity [0, 0, 3]
+~0.1
+_vehicle setPos [_pos select 0, _pos select 1, (_pos select 2) + 4]
+_vehicle setVelocity [0, 0, 3]
+
+_TGV = false
+? _vehicle in TownGroupVehicles : _TGV = true
+#Update
+
+	_posTruckAPC = getPos _tug
+	_dirTruckAPC = getDir _tug
+	_dirVehicle = getDir _vehicle
+	_posAttach = [(_posTruckAPC select 0) + _attachDist*sin(_dirTruckAPC+_attachDir), (_posTruckAPC select 1) + _attachDist*cos(_dirTruckAPC+_attachDir), 0]	
+	_vDisp = [_posAttach, getPos _vehicle] call funcVectorSub
+	_alt = (getPos _vehicle) select 2
+	_vVelAdd = [(_vDisp select 0)/5, (_vDisp select 1)/5, 2 * (2 - _alt)]
+	_dirDiff = _dirVehicle - _dirTruckAPC
+	? (_dirDiff > 180): _dirDiff = _dirDiff - 360
+	? (_dirDiff < -180): _dirDiff = _dirDiff + 360
+	? (_dirDiff > 5): _vehicle setDir (-1 + getDir _vehicle)
+	? (_dirDiff < -5): _vehicle setDir (1 + getDir _vehicle)
+	? isNull(((vehicleAttached select _tugindex) select tsTugged) select _tugslot) || !(alive _tug) || !(alive _vehicle) || !(local _vehicle): goto "Abort"
+	
+	_velVehicle = ([[velocity _tug, 0.8] call funcVectorScale, _vVelAdd] call funcVectorAdd)
+	_vehicle setVelocity _velVehicle
+	_loop = _loop + 1
+	? _loop > 30 : _loop = 0; _pos = getPos _vehicle; _pos set [2,2]; _vehicle setPos [-1000 - random 100, -1000 - random 100, 10]; _vehicle setVelocity _velVehicle; _vehicle setPos _pos; _vehicle setVelocity _velVehicle
+	
+	~0.1
+	
+	
+	? _TGV : _res = [getPos _vehicle, [_si], []] call funcGetClosestTown; if ( (_res select 1) > 250 ) then { goto "Abort" }
+	goto "Update"
+
+#Abort
+	? ([getPos _tug, getPos _vehicle] call funcDistH) > 4520 : if ( alive _tug && alive _vehicle ) then { hint "detach failed. Try it again please."; goto "Update" }
+	((vehicleAttached select _tugindex) select tsTugged) set [_tugslot, objNull]
+	[_vehicle, _gi, _si, _tugslot] exec "Common\SendVehicleDetached.sqs"
+
+	Exit

@@ -1,0 +1,10 @@
+; args: [unit, si, gi]
+
+_unit = _this select 0
+_si = _this select 1
+_gi = _this select 2
+
+@!(mutexBusy)
+mutexBusy = true
+call format["busy%1%2 = []", sideNames select _si, _gi]
+mutexBusy = false

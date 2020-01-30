@@ -1,0 +1,27 @@
+#Start
+
+@(pvMoneyGive != -1)
+
+_amount = pvMoneyGive
+_value = pvMoneyGiveGroup
+
+pvMoneyGive = -1
+pvMoneyGiveGroup = -1
+
+
+
+_giFrom = _value % 18
+_value = (_value - _giFrom) / 18
+
+_giTo = _value % 18
+_value = (_value - _giTo) / 18
+
+_si = _value
+
+;player globalchat format["MsgGiveMoney.sqs: _si=%1, _giFrom=%2, _giTo=%3, _amount=%4", _si, _giFrom, _giTo, _amount]
+
+; ? ((groupMoneyMatrix select _si) select _giFrom) < _amount: goto "Start"
+
+[_si, _giFrom, _giTo, _amount] call funcMoneyTransfer
+
+goto "Start"

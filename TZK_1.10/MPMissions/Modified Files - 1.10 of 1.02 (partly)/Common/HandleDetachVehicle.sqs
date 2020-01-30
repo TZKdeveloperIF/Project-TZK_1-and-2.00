@@ -1,0 +1,16 @@
+; args: [value, tug]
+
+_value = _this select 0
+_tug = _this select 1
+
+? (isNull _tug): exit
+
+_slot = _value
+
+_res = [_tug] call funcSearchvehicleAttached
+? !(_res select 1) : exit
+
+@!(mutexEditvehicleAttached)
+mutexEditvehicleAttached = true
+((vehicleAttached select (_res select 0)) select tsTugged) set [_slot, objNull]
+mutexEditvehicleAttached = false

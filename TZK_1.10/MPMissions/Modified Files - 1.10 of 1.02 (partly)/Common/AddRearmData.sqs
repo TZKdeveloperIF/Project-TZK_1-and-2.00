@@ -1,0 +1,18 @@
+; args: [object]
+
+_object = _this select 0
+
+; wait for weapon/mag changes
+~5+1
+
+_index = _object call funcAddRearmData
+? _index == -1 : exit
+
+@!(mutexEditRearmData)
+mutexEditRearmData = true
+
+_count = count rearmData
+? _index < count(rearmData) : if (alive ((rearmData select _index)select 0)) then { _index = _count }
+
+rearmData set [ _index, [_object, weapons _object, magazines _object] ]
+mutexEditRearmData = false

@@ -1,0 +1,59 @@
+; args: [vehicle, unit, actionID]
+
+_Scud = _this select 0
+_id = _this select 2
+
+? !(alive _Scud): _Scud removeAction _id
+
+_costReloadScud = 9000
+
+_si = siPlayer
+_gi = giPlayer
+
+
+_money = (groupMoneyMatrix select _si) select _gi
+? _money < _costReloadScud: hint format["Not enough money.\nCost: $%1.\nYou need $%2 more.", _costReloadScud, _costReloadScud - _money]; Exit
+
+hint "Reloading. Please wait..."
+
+
+@!(mutexReloadScud)
+mutexReloadScud = true
+? !(alive _Scud) || isNull _Scud : _Scud removeAction _id; exit
+
+_cargo = crew _Scud
+_i = 0
+_c = count _cargo
+
+#CheckUnit
+  _u = _cargo select _i
+  _group = group _u
+
+  ? (alive _u) && _Scud == (vehicle _u) : if (local _u) then { unassignVehicle _u; _u action ["EJECT", _Scud] } else { [_u] exec "Common\SendEjectUnit.sqs" }
+  
+  #CheckNext
+  ~1
+  _i = _i + 1
+  ? (_i < _c) : goto "CheckUnit"
+
+? !(alive _Scud) : _Scud removeAction _id; exit
+
+_type = _Scud call funcGetUnitTypeFromObject
+_pos = getPos _Scud
+_dir = getDir _Scud
+_Scud removeAction _id
+_Scud setPos [-1000,-1000,100]
+~0.1
+deleteVehicle _Scud
+~0.2
+_res = [_type, _pos, _dir, _si, -1, 0, 2] call fAddVehicle
+
+[_costReloadScud] exec "Player\SendMoneySpent.sqs"
+
+~1
+player groupchat format ["Reloaded. Spent %1%2.", "$", 9000]
+[_Scud, _type, _si, 2] exec "Common\SendScudOperation.sqs"
+
+~0.2*sendDelay
+mutexReloadScud = false
+exit

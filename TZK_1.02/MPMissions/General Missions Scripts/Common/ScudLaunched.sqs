@@ -1,0 +1,43 @@
+; args: [Scud, si]
+
+_Scud = _this select 0
+_si = _this select 1
+
+_pos = getPos _Scud
+_destination = ((wpCO select _si) select 8)
+_failed = ( (_destination select 0) == -1 )
+
+playsound "NuclearMissileLaunched_xj101"
+
+~10
+_siEnemy = siEnemy select _si
+? siPlayer != _siEnemy || giPlayer != giCO select siPlayer : goto "ScudImpact"
+
+? ((upgMatrix select _siEnemy) select upgRadarArtillery) != 2: goto "ScudImpact"
+_radars = [_siEnemy, stComm] call funcGetWorkingStructures
+? (count _radars == 0): goto "ScudImpact"
+
+_detections = 0
+_distMaxCC = [distMaxCC, (distMaxCC)/10] select (distMaxCC > 999)
+{ if (([getPos _x, _pos] call funcDistH) < 15*_distMaxCC) then { _detections = _detections + 1 } } foreach _radars
+? _detections == 0 : goto "ScudImpact"
+
+_detections = 99999
+_posX = (_pos select 0) / 10
+_posX = _posX - _posX%1
+_posY = (_pos select 1) / 10
+_posY = _posY - _posY%1
+
+pvArt = _detections + 100000*_siEnemy
+pvArtPos = _posX + 3000*_posY
+
+PublicVariable "pvArtPos"
+PublicVariable "pvArt"
+
+#ScudImpact
+~(25 - 10)
+if !(_failed) then { hint "Impact in 6s..." } else { hint "Unfortunately, missile missed target." }
+~6
+if !(_failed) then { [_destination] exec "ScudDrop.sqs" }
+
+

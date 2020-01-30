@@ -1,0 +1,23 @@
+; args: [vehicle, type, si]
+
+_v = _this select 0
+
+~1
+? !(local _v) || !(alive _v) : exit
+
+_mags = magazines _v
+_wpns = weapons _v
+
+{ _v removeMagazine _x} foreach _mags
+{ _v removeWeapon _x} foreach _wpns
+
+
+
+_v addMagazine "M1Sabot_xj110"
+_v addMagazine "M1Heat_xj110"
+_v addMagazine "MachineGun12_7"
+_v addMagazine "MachineGun12_7"
+_v addweapon "M1Gun_xj110"
+_v addweapon "MachineGun12_7"
+
+exit

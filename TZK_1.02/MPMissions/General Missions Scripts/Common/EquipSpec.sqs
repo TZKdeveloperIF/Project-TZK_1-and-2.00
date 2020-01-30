@@ -1,0 +1,39 @@
+; args: [unit, typeUnit, siUnit]
+
+_unit = _this select 0
+; _type = _this select 1
+_si = _this select 2
+
+~1
+? !(local _unit) || !(alive _unit) : exit
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+
+? _si == si1 : goto "East"
+
+#West
+  { _unit addMagazine "HK" } forEach [1,2]
+  { _unit addMagazine "Pipebomb" } forEach [1,2,3]
+  { _unit addMagazine magMine } forEach [1]
+  { _unit addMagazine "RevolverMag" } forEach [1,2,3,4]
+  _unit addWeapon "HK"
+  _unit addWeapon "Put"
+  _unit addWeapon "Revolver"
+  _unit addWeapon "NVGoggles"
+
+  exit
+
+#East
+  { _unit addMagazine "BizonMag_xj101" } forEach [1,2]
+  { _unit addMagazine "Pipebomb" } forEach [1,2,3]
+  { _unit addMagazine magMine } forEach [1]
+  { _unit addMagazine "RevolverMag" } forEach [1,2,3,4]
+  _unit addWeapon "Bizon_xj101"
+  _unit addWeapon "Put"
+  _unit addWeapon "Revolver"
+  _unit addWeapon "NVGoggles"
+ 
+  exit
+

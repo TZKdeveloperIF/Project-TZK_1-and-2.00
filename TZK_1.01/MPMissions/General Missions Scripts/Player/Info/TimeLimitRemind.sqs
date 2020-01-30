@@ -1,0 +1,15 @@
+; args: [sec]
+
+_value = _this select 0
+
+_minutes = _value/60
+
+_textHint = format["Time limit reached in\n%1 %2.", _minutes, ["minutes", "minute"] select (_minutes == 1)]
+_text = format["Time limit reached in %1 %2.", _minutes, ["minutes", "minute"] select (_minutes == 1)]
+
+hint _textHint
+player groupchat _text
+
+? (60*_minutes) == (timeLimit-60*60) : PlayMusic (["Track9","Track11","Track12","Track14","RTrack3","RTrack6"] select music1h); 0 FadeMusic 0.5 
+
+? _minutes == 10 : PlayMusic (["Track13","Frost","RTrack1b","RTrack5","RTrack7"] select music10m); 0 FadeMusic 0.5

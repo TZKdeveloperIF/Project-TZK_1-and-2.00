@@ -1,0 +1,16 @@
+; args: [si, upg, state]
+
+_si = _this select 0
+_upg = _this select 1
+_state = _this select 2
+
+_value = mtUpgState
+_value = _value + TotalInfoTypes*_upg
+_value = _value + (TotalInfoTypes*100)*_state
+_value = _value + (TotalInfoTypes*100*3)*_si
+
+[_value] exec "Server\Info\SendInfoMsg.sqs"
+
+? upgCCdistance == _upg && _state == 2 : CCdistMax set [_si, distMaxCCUpgraded]
+? upgGunshipRocket == _upg && _state == 2 : if (_si==si0) then { {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 0)); {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 1)) } else {{[_x, ["Rocket57x40Kamov_xj110"], ["Rocket57x40Kamov_xj110"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 2)); {[_x, ["Rocket57x64"], ["Rocket57x64"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 3))}
+? ((upgMatrix select _si) select upgWorkers) == 2: maxWorkers set [_si, 20]

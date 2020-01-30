@@ -1,0 +1,12 @@
+; args: [objects, type]
+
+_objects = _this select 0
+_type = _this select 1
+_i = _this select 2
+
+
+@!(mutexStructServer)
+mutexStructServer = true
+? _i < count structuresServer : if (!isNull (((structuresServer select _i) select 0) select 0)) then {[_objects, _type] call funcStructuresServerAdd; mutexStructServer = false; exit}
+structuresServer set [_i, [_objects, _type] ]
+mutexStructServer = false

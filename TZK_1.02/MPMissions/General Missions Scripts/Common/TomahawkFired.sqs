@@ -1,0 +1,297 @@
+; args: [vehicle, shell]
+
+_vehicle = _this select 0
+_shell = _this select 1
+
+_type= typeOf _shell
+
+#Check
+_pos = getPos _shell
+~0.01
+? (alive _shell) && (_type == typeOf _shell) : goto "Check"
+
+
+? !(local LocalServerObject) : [_pos] exec "Player\TomahawkDrop.sqs"; exit
+
+
+
+_delta = 25
+_posx = _pos select 0
+_posy = _pos select 1
+
+
+
+[_posx - (4 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx , _posy] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta), _posy] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta), _posy - (1 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta), _posy + (1 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta), _posy - (2 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta), _posy + (2 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (3 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy - (3 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (3 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta), _posy + (3 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (2 * _delta), _posy - (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy - (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy - (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy - (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy - (4 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (2 * _delta), _posy + (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta), _posy + (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx, _posy + (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta), _posy + (4 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta), _posy + (4 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy - (1 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy + (1 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy - (2 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy + (2 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy - (3 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (4 * _delta) + (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (3 * _delta) + (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (4 * _delta) - (0.5 * _delta), _posy + (3 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (3 * _delta) + (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy - (4 * _delta) + (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+
+[_posx - (3 * _delta) + (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (2 * _delta) + (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx - (1 * _delta) + (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (1 * _delta) - (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (2 * _delta) - (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02
+[_posx + (3 * _delta) - (0.5 * _delta), _posy + (4 * _delta) - (0.5 * _delta)] call funcTomahawkExplosion
+~0.02

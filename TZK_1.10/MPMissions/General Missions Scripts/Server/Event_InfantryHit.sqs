@@ -1,0 +1,28 @@
+; args: [ [vehicle, causedBy, damage], si, gi]
+
+? !(local LocalServerObject) : exit
+
+_unit = (_this select 0) select 0
+_si = _this select 1
+_gi = _this select 2
+
+
+
+? _unit in CheckSupportUnits : exit
+
+
+
+
+
+
+
+
+
+
+? call busyCheck : exit
+? ((call grpSetting) select aisAutoRepair) == 2 : exit
+
+_heal = _unit call funcCheckRepair
+? !_heal : exit
+
+[_unit, _si, _gi, true, _unit call funcCheckRearm] exec "Server\CheckSupportVehicle.sqs"

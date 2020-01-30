@@ -1,0 +1,45 @@
+; args: [object, isMHQ, isAlive]
+
+_object = _this select 0
+_isMCV = _this select 1
+_bAlive = _this select 2
+
+? _isMCV == 1 : goto "DeleteMCV"
+
+#DeleteStructure
+	
+_index = 0
+_count = count structuresServer
+_cost = 0
+
+#FindStructureDelete
+
+	_entry = structuresServer select _index
+	_objects = _entry select 0
+	_type = _entry select 1
+
+	? (_object in _objects): goto "ObjectFoundDelete"
+
+	_index = _index + 1
+
+	? (_index < _count): goto "FindStructureDelete"
+
+"ERROR: _object not found in structuresServer when primary structure is to be deleted" call fDebugLog
+goto "DeleteVehicle"
+
+#ObjectFoundDelete
+	structuresServer set [_index, 0]; structuresServer = structuresServer - [0]
+	{ deleteVehicle _x } foreach _objects
+
+#DeleteVehicle
+	deleteVehicle _object
+	si0 exec "Server\CheckWinDestruction.sqs"
+	~1
+	si1 exec "Server\CheckWinDestruction.sqs"
+	exit
+
+#DeleteMCV
+? _bAlive == 1 : _object setDamage 1; si0 exec "Server\CheckWinDestruction.sqs"; si1 exec "Server\CheckWinDestruction.sqs"; exit
+
+deleteVehicle _object
+exit

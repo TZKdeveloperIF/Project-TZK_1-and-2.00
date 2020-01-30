@@ -1,0 +1,32 @@
+#Start
+
+@(pvBuyUnit_Type != -1)
+
+_value = pvBuyUnit_Type
+_factory = pvBuyUnit_Factory
+
+pvBuyUnit_Type = -1
+
+_type = _value % 200
+_value = _value - _type
+
+_giJoin = (_value % (200*18))/200
+_value = _value - _giJoin*200
+
+_giBuyer = (_value % (200*18*18))/(200*18)
+_value = _value - _giBuyer*(200*18)
+
+_si = (_value % (200*18*18*2))/(200*18*18)
+_value = _value - _si*(200*18*18)
+
+_driver = (_value % (200*18*18*2*2))/(200*18*18*2)
+_value = _value - _driver*(200*18*18*2)
+
+_gunner = (_value % (200*18*18*2*2*2))/(200*18*18*2*2)
+_value = _value - _gunner*(200*18*18*2*2)
+
+_commander = (_value % (200*18*18*2*2*2*2))/(200*18*18*2*2*2)
+_value = _value - _commander*(200*18*18*2*2*2)
+
+[_type, _driver, _gunner, _commander, _si, _giJoin, _giBuyer, _factory] exec "Server\BuyUnit.sqs"
+goto "Start"

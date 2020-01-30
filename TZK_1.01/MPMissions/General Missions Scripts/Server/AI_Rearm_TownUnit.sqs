@@ -1,0 +1,64 @@
+; args: [unit, si, gi, vehicleRearm, type, truck]
+
+_unit = _this select 0
+_si = _this select 1
+_gi = _this select 2
+_vehicleRearm = _this select 3
+_type = _this select 4
+_support = _this select 5
+
+? !(alive _unit) || !(alive _vehicleRearm) : exit
+
+_timeRearm = 5
+? _unit != _vehicleRearm : _timeRearm = 30
+
+_rearmData = _vehicleRearm call funcGetRearmData
+_weapons = _rearmData select 0
+_mags = _rearmData select 1
+? (count _mags) == 0 : exit
+
+; CALC COST
+_type = _vehicleRearm call funcGetUnitTypeFromObject
+? _type == -1 && _unit != _vehicleRearm : format["ERROR: _type is -1 for vehicle '%1' in AI_Rearm", _vehicleRearm] call fDebugLog; exit
+
+? _unit != _vehicleRearm : goto "RearmVehicle"
+
+#RearmInfantry
+    _rearm = false
+    _wpnPrim = primaryWeapon _unit
+    _wpnSec = secondaryWeapon _unit
+    ? _wpnPrim != "" : if ((_unit ammo _wpnPrim) == 0) then { _rearm = true }
+    ? _wpnSec != "" : if ((_unit ammo _wpnSec) == 0) then { _rearm = true }
+	? !(_rearm) : goto "RearmEnd"
+	
+	? !(local _vehicleRearm) : exit
+  _vehicleRearm setCombatMode "BLUE"
+  ~_timeRearm
+	? !(alive _vehicleRearm) : _vehicleRearm setCombatMode "YELLOW"; exit
+	? !(alive _support) : _vehicleRearm setCombatMode "YELLOW"; exit
+  removeAllWeapons _vehicleRearm
+  ; add custom throw/put
+  { _vehicleRearm addWeapon _x } forEach weaponsCustom
+  ? count (magazines _vehicleRearm) > 0 : format["ERROR: soldier '%1-%2' has mags in AI_Rearm.sqs", _vehicleRearm, typeOf _vehicleRearm] call fDebugLog; _vehicleRearm setCombatMode "YELLOW"; exit
+  { _vehicleRearm addMagazine _x } foreach _mags
+  ? count (weapons _vehicleRearm) > 0 : format["ERROR: soldier '%1-%2' has weapons in AI_Rearm.sqs", _vehicleRearm, typeOf _vehicleRearm] call fDebugLog; _vehicleRearm setCombatMode "YELLOW"; exit
+  { _vehicleRearm addWeapon _x } foreach _weapons
+  _vehicleRearm setCombatMode "YELLOW"
+  ; _vehicleRearm selectWeapon (primaryWeapon _vehicleRearm)
+  goto "RearmEnd"
+
+#RearmVehicle
+    _rearm = false
+	_weapons = weapons _vehicleRearm
+	{ if ((_vehicleRearm ammo _x) == 0) then { _rearm = true }  } forEach _weapons
+	? !(_rearm) : goto "RearmEnd"
+	
+	
+  if (local _vehicleRearm) then { { _vehicleRearm removeMagazines _x } foreach (magazines _vehicleRearm) } else { [_vehicleRearm] exec "Common\SendVehicleMagsRemove.sqs" }
+  ~_timeRearm
+  ? !(alive _vehicleRearm) || !(alive _support) : exit
+  ? count (magazines _vehicleRearm) == 0 : if (local _vehicleRearm) then { { _vehicleRearm addMagazine _x } foreach _mags } else { [_vehicleRearm] exec "Common\SendVehicleMagsAdd.sqs" }
+  goto "RearmEnd"
+
+#RearmEnd
+  exit

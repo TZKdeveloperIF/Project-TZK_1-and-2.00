@@ -1,0 +1,9 @@
+; args [vehicle, type, si, gi]
+
+_plane = _this select 0
+_type = _this select 1
+_si = _this select 2
+
+_plane say "NuclearMissileReady_xj110"
+
+_plane addEventHandler ["Fired",{ [_this select 0, nearestObject[_this select 0, _this select 4] ] exec "Common\TomahawkFired.sqs"; playsound "NuclearMissileLaunched_xj110" }]

@@ -1,0 +1,71 @@
+; args: [units]
+
+_unitselect = _this select 0
+_groups = [groupPlayer]
+_dlg = createDialog "DisbandGroupDialog"
+
+	btnDisbandGroupOK = false
+	btnDisbandGroupExit = false
+
+#Update
+  ? !(dialog) : exit
+  ? !(alive player) : closeDialog 0; exit
+	? btnDisbandGroupOK : btnDisbandGroupOK = false; closeDialog 0; goto "BeginDisbandGroup"
+	? btnDisbandGroupExit : btnDisbandGroupExit  = false; closeDialog 0; exit
+~0.1
+goto "Update"
+
+#BeginDisbandGroup
+player groupchat "Process started: disbanding group of selected unit....";
+	~3
+	? giPlayer == giCO select siPlayer : _groups = _groups + (groupAiMatrix select siPlayer)
+		_unit = _unitselect select 0
+		_grp = group _unit
+		_units = units _grp
+		_x = 0
+
+	_i = 0
+	_c = count _units
+	#CheckUnit
+  	? !(_i < _c) : goto "EventDone" 
+  		_u = _units select _i
+  		_i=_i+1
+  	? _u == leader _u : player groupchat "Group Leader won't be disband when disbanding group"; goto "CheckUnit"
+			_type = _u call funcGetUnitTypeFromObject
+			_typenameunit = (unitDefs select _type) select udName
+			_cost = (unitDefs select _type) select udCost
+			_damunit = damage _u
+			_costdam = 1 - _damunit
+			_costcalc = _costdam*(_cost/10)
+			_costcalc = _costcalc - (_costcalc % 1)
+			_msg = format["Disbanding unit... You earn: %1$ for: %2", _costcalc, _typenameunit]
+  	? !(alive _u) : player groupchat "Won't disband dead unit... You earn: 0$."; goto "CheckUnit"
+  		_crew = crew _u
+  	? giPlayer != (giCO select siPlayer) && count _crew == 0 : player groupchat "Only commanders can disband empty vehicles."; goto "CheckUnit"
+  	? count _crew > 0 && !(_u in _crew) : player groupchat "Can't disband non-empty vehicles... You earn: 0$."; goto "CheckUnit"
+	  ? count _crew == 0 && (_u in ( mhq + (MCV select si0) + (MCV select si1) )) : player groupchat "Can't disband MHQ/MCV."; goto "CheckUnit"
+ 		? count _crew == 0 : player groupchat _msg; goto "SkipKill"
+	  ? !((group _u) in _groups) : player groupchat "Not allowed to disband groups from other players."; goto "CheckUnit"
+  	? _u == vehicle _u : player groupchat _msg; goto "SkipKill"
+		player groupchat _msg;
+		  _u setDamage 1
+	  ~1
+	#SkipKill
+	~1
+deleteVehicle _u
+	_x = _x + 1
+[-_costcalc] exec "Player\SendMoneySpent.sqs"
+goto "CheckUnit"
+
+#EventDone
+~3
+player groupchat "Process completed..."
+~1.2
+player groupchat format["Number of groupsize before process start: %1", _c]
+~0.75
+player groupchat format["Number of disbanded untis: %1", _x]
+~0.75
+player groupchat "Leader not disbanded..."
+
+#Exit
+exit

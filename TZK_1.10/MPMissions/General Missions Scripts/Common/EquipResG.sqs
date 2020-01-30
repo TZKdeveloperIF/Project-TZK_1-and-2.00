@@ -1,0 +1,12 @@
+; args: [unit, type, si]
+
+_unit = _this select 0
+
+~1
+? !(local _unit) || !(alive _unit) : exit
+
+_unit addMagazine "Kasap_xj110"
+_unit addMagazine "Kasap_xj110"
+_unit addMagazine "Kasap_xj110"
+_unit addWeapon "KasaThrow_xj110"
+exit

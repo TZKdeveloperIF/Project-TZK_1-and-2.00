@@ -1,0 +1,9 @@
+; args: [amount]
+
+_amount = _this select 0
+
+_value = _amount + 10000
+_value = _value + (20000)*giPlayer
+_value = _value + (20000*18)*siPlayer
+
+pvMoneySpent = _value; PublicVariable "pvMoneySpent"

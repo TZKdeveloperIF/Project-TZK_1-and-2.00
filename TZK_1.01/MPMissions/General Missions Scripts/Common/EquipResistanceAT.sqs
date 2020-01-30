@@ -1,0 +1,34 @@
+; args: [unit, si]
+
+_unit = _this select 0
+_si = _this select 1
+
+
+
+rand = random 2
+num = rand - (rand mod 1)
+
+? num == 0: goto "weapon0"
+? num == 1: goto "weapon1"
+
+#weapon0
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "JahSG551mag_xj101" } forEach [1,2,3,4]
+  { _unit addMagazine "CarlGustavLauncher" } forEach [1]
+ _unit addWeapon "JahSG551_xj101"
+ _unit addWeapon "CarlGustavLauncher"
+  exit
+
+#weapon1
+
+removeAllWeapons _unit
+
+{ _unit addWeapon _x } forEach weaponsCustom
+  { _unit addMagazine "RFSVUAmag_xj101" } forEach [1,2,3,4]
+  { _unit addMagazine "AT4Launcher" } forEach [1]
+ _unit addWeapon "RFSVUa_xj101"
+ _unit addWeapon "AT4Launcher"
+  exit

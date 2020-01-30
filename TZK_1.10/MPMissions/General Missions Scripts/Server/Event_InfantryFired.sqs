@@ -1,0 +1,34 @@
+; args: [ [unit, weapon, muzzle, mode, ammo], si, gi]
+
+? !(local LocalServerObject) : exit
+
+_unit = (_this select 0) select 0
+_weapon = (_this select 0) select 1
+
+? _weapon != (secondaryWeapon _unit) : exit
+
+_si = _this select 1
+_gi = _this select 2
+
+? call busyCheck : exit
+? ((call grpSetting) select aisAutoRearm) == 2 : exit
+
+
+@!(mutexCheckSupport)
+mutexCheckSupport = true
+? _unit in CheckSupportUnits : mutexCheckSupport = false; exit
+CheckSupportUnits set [count CheckSupportUnits, _unit]
+mutexCheckSupport = false
+
+~10
+
+@!(mutexCheckSupport)
+mutexCheckSupport = true
+CheckSupportUnits = CheckSupportUnits - [_unit, objNull]
+mutexCheckSupport = false
+
+? !alive _unit : exit
+_heal = _unit call funcCheckRepair
+_rearm = _unit call funcCheckRearm
+? !_heal && !_rearm : exit
+[_unit, _si, _gi, _heal, _rearm] exec "Server\CheckSupportVehicle.sqs"

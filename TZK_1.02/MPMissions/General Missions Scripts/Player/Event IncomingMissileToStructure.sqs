@@ -1,0 +1,17 @@
+; args: [target, ammo, whoFired]
+
+_target = _this select 0
+_ammo = _this select 1
+_source = _this select 2
+
+_missile = nearestObject [_source, _ammo]
+
+? !(local _missile) : exit
+
+_vehicleType = _source call funcGetUnitTypeFromObject
+? !( _vehicleType in (vUnlimitedRange + vDoubledRange) ) : exit
+
+
+? ((upgMatrix select siPlayer) select upgLongWeaponRange) == 2 : exit
+_distance = _target distance _source
+? _distance > viewDistance && _vehicleType in vDoubledRange : deleteVehicle _missile; hint "Locking AA on Structures before upgrading WeaponRange is not allowed.\nMissile deleted."

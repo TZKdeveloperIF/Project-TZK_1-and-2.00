@@ -1,0 +1,5 @@
+; args: [vehicle]
+
+_u = _this select 0
+
+pvFuelVehicle = _u; PublicVariable "pvFuelVehicle"

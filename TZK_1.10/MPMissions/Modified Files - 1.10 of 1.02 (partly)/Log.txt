@@ -1,0 +1,9 @@
+Change marker of "BMP2 AA Town" from "_mAPC" to "_mAA".
+
+Add executing of "MsgWorkerGroup" in "InitSpectator.sqs".
+
+Cancel the using of mutex in "SendCancelBuy".
+
+Add a serial of "Buy" Buttons to "Buy Units" dialog. Fix the "nShow" bug.
+
+Enlarge the carry of group number in AI-Order/Setting Send/Msg scripts, pass the "gi_Commander + GroupsNum" as _gi for "ALL"

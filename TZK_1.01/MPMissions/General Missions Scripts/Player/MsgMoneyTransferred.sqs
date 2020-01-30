@@ -1,0 +1,27 @@
+#Start
+
+@(pvMoneyTransfer != -1)
+
+_amount = pvMoneyTransfer
+_value = pvMoneyTransferGroup
+pvMoneyTransfer = -1
+pvMoneyTransfer = -1
+
+
+_giFrom = _value % 18
+_value = (_value - _giFrom)/18
+
+_giTo = _value % 18
+_value = (_value - _giTo)/18
+
+_si = _value
+
+
+
+; player globalchat format["MsgMoneyTransferred.sqs: _amount=%1, _si=%2, _giFrom=%3", _amount, _si, _giFrom]
+
+_nameFrom = name leader ((groupMatrix select _si) select _giFrom)
+? ((groupMatrix select _si) select _giFrom) in (groupAiMatrix select _si) : _nameFrom = format["AI %1", (groupNameMatrix select _si) select _giFrom]
+? (siPlayer == _si) && (giPlayer == _giTo): player groupchat format ["You received $%1 from %2", _amount, _nameFrom]
+
+goto "Start"

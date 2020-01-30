@@ -1,0 +1,6 @@
+; args: none
+
+? ((upgMatrix select siPlayer) select upgTrackArtBullet) != 2: hint "Track Art Bullet must be upgraded first!"; exit
+? ((upgMatrix select siPlayer) select upgSatCam) != 2: hint "Satellite Camera must be upgraded first!"; exit
+? count ([siPlayer, stSatRec] call funcGetWorkingStructures) == 0 : Hint "Need Working Unit Camera Receiver"; exit
+bTrackBullet = true

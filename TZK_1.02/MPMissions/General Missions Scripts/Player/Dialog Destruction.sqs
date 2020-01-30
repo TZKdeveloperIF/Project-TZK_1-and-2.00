@@ -1,0 +1,113 @@
+; args: []
+
+_dlg = createDialog "GenericDialog"
+
+_idcAction0Label = IDC+0
+_idcAction0 = IDC+1
+_idcAction1Label = IDC+2
+_idcAction1 = IDC+3
+_idcAction2Label = IDC+4
+_idcAction2 = IDC+5
+_idcAction3Label = IDC+6
+_idcAction3 = IDC+7
+_idcAction4Label = IDC+8
+_idcAction4 = IDC+9
+
+_idcListHeader = IDC+10
+_idcList = IDC+11
+
+btnAction0 = false
+btnAction1 = false
+btnAction2 = false
+btnAction3 = false
+btnAction4 = false
+
+{ ctrlShow [_x, false] } forEach [ _idcAction0Label, _idcAction1Label, _idcAction2Label, _idcAction3Label, _idcAction4Label ]
+{ ctrlShow [_x, false] } forEach [_idcAction3, _idcAction4]
+
+ctrlSetText [IDC_TITLE, "Destruction"]
+ctrlSetText [_idcAction0, "Delete Structure Worker"]
+ctrlSetText [_idcAction1, "Delete MCV"]
+ctrlSetText [_idcAction2, "Undo"]
+ctrlSetText [_idcListHeader, "Struct & worker must be in working CC's range."]
+
+_index = 0
+_count = count structsDestroy
+_structsDisp = []
+_mcvs = MCV select siPlayer
+? (count _mcvs) > 0 : { if (! isNull _x) then { _textPos = (getPos _x) call funcCalcTownDirDistFromPos; _structsDisp = _structsDisp + [[_x, [utMCVW, utMCVE] select siPlayer, "MCV", ["im113_ambu", "ibmp_abu"] select siPlayer, _textPos]] } } forEach _mcvs
+
+#CheckNextStructType
+	_type = structsDestroy select _index; _name = (structDefs select _type) select sdName; _image = ( (structDefs select _type) select sdImage ) select siPlayer
+	_structs = [siPlayer, _type] call funcGetWorkingStructuresWithinCCRange
+	{ _textPos = (getPos _x) call funcCalcTownDirDistFromPos; _structsDisp = _structsDisp + [[_x, _type, _name, _image, _textPos]] } forEach _structs
+	_index = _index + 1
+	? (_index < _count): goto "CheckNextStructType"
+
+_CommandCenters = (structMatrix select siPlayer) select stComm
+{ if !(alive _x) then {_CommandCenters = _CommandCenters - [_x]} } forEach _CommandCenters
+_workers = []
+{ _workers = _workers + ([getPos _x, distMaxCC, [[utWorkerW], [utWorkerE]] select siPlayer, [], siPlayer] call funcGetNearbySoldiers) } forEach _CommandCenters
+_engineers = []
+{ if !( (_x select 0) in _engineers ) then { _engineers set [count _engineers, _x select 0] } } forEach _workers
+{ _textPos = (getPos _x) call funcCalcTownDirDistFromPos; _structsDisp set [ count _structsDisp, [_x, [utWorkerW, utWorkerE] select siPlayer, "Worker", "isaa", _textPos] ] } forEach _engineers
+
+
+_i = 0
+_c = count _structsDisp
+#InitNext
+  _struct = (_structsDisp select _i) select 0
+  _type = (_structsDisp select _i) select 1
+  _name = (_structsDisp select _i) select 2
+  _image = (_structsDisp select _i) select 3
+  _textPos = (_structsDisp select _i) select 4
+  
+  
+  _text = format["%1 - %2", _name, _textPos];
+  _id = lbAdd [_idcList, _text];
+  ? _image != "" : lbSetPicture [_idcList, _id, _image]
+
+  #InitSkip
+  _i = _i + 1
+  ? _i < _c : goto "InitNext"
+
+lbSetCurSel [_idcList, 0]
+
+#Undo_Check
+  ? (call format ["Destruction_Undo%1", siPlayer]) : { ctrlEnable [_x, false] } forEach [_idcAction0, _idcAction1, _idcAction2]; goto "Undo_Sleep"
+
+#Update
+  ? !(dialog) : exit
+  ? !(alive player) : closeDialog 0; exit
+
+  ? (btnAction0): btnAction0=false; goto "DeleteStructure"
+  ? (btnAction1): btnAction1=false; goto "DeleteMCV"
+  ? (btnAction2): btnAction2=false; goto "Undo"
+
+  #Skip
+  ~0.2
+  goto "Update"
+
+#DeleteStructure
+  _factory = (_structsDisp select (lbCurSel _idcList)) select 0
+  ? _factory in _mcvs : hint "MCV isn't structure."; goto "Update"
+  ? !(alive _factory) && ( (_structsDisp select (lbCurSel _idcList)) select 2 ) == "Worker": hint "Worker has been killed. Select another one."; goto "Update"
+  ? !(alive _factory) : hint "Structure destroyed, need repair first."; goto "Update"
+  [_structsDisp select (lbCurSel _idcList), false] exec "Player\Waiting For Destruction.sqs"; goto "Update"
+  
+#DeleteMCV
+  _factory = (_structsDisp select (lbCurSel _idcList)) select 0
+  ? !(_factory in _mcvs) : hint "Structure isn't MCV."; goto "Update"
+  [_structsDisp select (lbCurSel _idcList), true] exec "Player\Waiting For Destruction.sqs"; goto "Update"
+
+#Undo
+  call format ["Destruction_Undo%1 = true", siPlayer]; publicVariable call format ["""Destruction_Undo%1""", siPlayer]
+  hint "Undo in process..."; { ctrlEnable [_x, false] } forEach [_idcAction0, _idcAction1, _idcAction2]
+  ~3
+  call format ["Destruction_Undo%1 = false", siPlayer]; publicVariable call format ["""Destruction_Undo%1""", siPlayer]
+  hint "Undo done. All destructing process halt."; { ctrlEnable [_x, true] } forEach [_idcAction0, _idcAction1, _idcAction2]
+  goto "Update"
+  
+#Undo_Sleep
+~1
+{ ctrlEnable [_x, true] } forEach [_idcAction0, _idcAction1, _idcAction2]; goto "Undo_Check"

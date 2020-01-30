@@ -1,0 +1,11 @@
+; args: [Scud, type, si, operation]
+; operation: 0 means launch, 1 means add reload action, 2 means broadcast reload info.
+
+_Scud = _this select 0
+_type = _this select 1
+_si = _this select 2
+_oper = _this select 3
+
+? _oper == 0 : [_Scud, _si] exec "Common\ScudLaunched.sqs"
+? _oper == 1 && _si == siPlayer && alive _Scud : _Scud addAction["Reload Scud","Player\Action ReloadScud.sqs"]
+? _oper == 2 && (local LocalServerObject) : [_si, _type] exec "Server\Info\ScudReloaded.sqs"
