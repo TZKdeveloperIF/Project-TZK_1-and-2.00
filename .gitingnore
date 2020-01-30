@@ -1,0 +1,11 @@
+!/*.cpp
+!/*.hpp
+!/*.sqs
+!/*.sqf
+!/*.txt
+
+!/*.ext
+!/*.html
+!/*.sqm
+!/*.csv
+!/*.bin
