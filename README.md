@@ -13,3 +13,4 @@ Effects basing on EventHandler and CfgMaterials are introduced.
 Models are get better re-edit.
 
 Those changes and attempts sometimes work instable in TZK_2.00, thus have to be updated frequently. The author finally realized that the MOD should be well defined and store as many as possible stable and basic resources, and their usage should be defined in MPMissions, as the result, the mod won't(and not recommended) need to be updated frequently, editor need only to upgrade/fix missions.
+Besides, when making TZK_2.00 the author start to learn the usage of batch processing with the help of Mikero tools. His MakePBO, ExtractPBO and Eliteness are awesome.
