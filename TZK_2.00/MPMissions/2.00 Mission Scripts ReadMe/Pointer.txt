@@ -1,0 +1,6 @@
+The variable restoring an array is a pointer actually. It restores an address. Thus if more than one Array Varialbes pointing to same array (that is, same address), their element will change synchronously if the array is edited by "set" script command.
+For example: a=[0,1]; b=a; a set [0,1]  then a=[1,1] and b=[1,1] as well.
+However, using "=" to assign the array variable, the variable is assigned by another address actually.
+For example: a=[0,1]; b=a; a=[1,1]  then a=[1,1] while b=[0,1] and address of a and b is different.
+
+It's quite important to know this when editing. Editors may learn the usage of this in Server\AddToUnitQueue and Server\InitUnitFactory, check how "_queues" influence factoryQueues.

@@ -1,0 +1,8 @@
+The condition of auto-rearm mainly rely on the specific defines of infantry/vehicle weapons.
+
+For infantry, after having shot its missile (e.g. LAW), the "unit ammo 'LAWLauncher'" will decrease from 1 to 0, but the number of "LAWLauncher" magazine won't decrease until soldier having reloaded its LAW. Thus the count of ammo plus the count of magazine is a good condition for infantry. But it's necessary to point out the kind of missile launcher which soldier is using.
+
+For vehicles, mostly meaning tanks who have sabot and heat magazines and Commander mostly wish they shot sabot only. OFP lack of the action ask AI tanks to switch its magazine. So TZK use the count of sabot magazines and the amount of sabot ammo to judge whether the AI should rearm when repairing. The number of sabot left is set as a setting of AI groups as well.
+
+
+Editors can check Server\AI_CheckRearm.sqf and Server\OrderTemp Rearm.sqs for more info, and don't forget to edit these 2 scripts once new weapons/sabot magazines added.

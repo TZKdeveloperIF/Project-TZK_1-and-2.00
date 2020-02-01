@@ -1,0 +1,12 @@
+The effect of CfgMaterials can be defined in config.cpp in ANY AddOns, that is, unnecessary to override the Bin\config in mods.
+
+However the CfgMaterials Effect is invalid to those objects created during a mission, and most units in CTI is created in game, not on start. Luckily if player ALT+TAB twice those EXISTED objects will gain the effects, and a texture gained the Effect will keep on working on new spawned object. Thus a solution shows up: to create all vehicles in the beginning then players can easily ALT+TAB twice then all objects created later will have effects.
+
+Check Server\MaterialEffectVehicles.sqs for more info.
+
+
+
+
+Effects are merged in TZK_Effects. The critical material effect is defined by CfgMaterials. Add textures to CfgTextureToMaterial can make the texture have the material effect.
+Files used in TZK_Effects deleted many textures unused in 2.00 TZK CTI mission. The original files of ofp_matdef packaged in folder as well and it includes more textures from addons. Editor can fill more texture to it by himself. And it's a way to search for ideal addon reminded by texture's path defined in ofp_matdef.
+But be aware: too many textures listed in CfgTextureToMaterial will make game stuck.

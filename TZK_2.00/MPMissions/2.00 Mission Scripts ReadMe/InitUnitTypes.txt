@@ -1,0 +1,9 @@
+InitUnitTypes is a critical script belong to the Init-series which used to initialize units in the beginning. It defines an array naming "unitDefs" and the format of its elements is:
+[Name, Price, Side, BuildTime, Model(class name defined by config files), Image, FactoryType, crew(an array consist of max crew numbers and the soldier model), MarkerType, Scripts]
+
+TotalUnitTypes widely used in carry system and some publicVariable had been divided into 2 variables in old version TZK, and make it possible to enlarge its number(used to be 200 in XR missions, and now 250). If editor wish to add more units here, don't forget to adjust the TotalUnitTypes' value.
+
+Almost all units have a local variable indicating its type (e.g._m1a1w, mi24E2, etc), and TZK add many global array variables to record them for other scripts. The "utMHQ" and "utMCV" is global thus can be used directly in other scripts. Editors should define new-added units' type variable carefully and make it be contained by those functional global arrays.
+
+
+It's a convenient method setting a units' FactoryType "-1" or other value different from factory types defined in InitStructureTypes to hide the buying enterance and make a defiend unit unable to be bought in game. FactoryType is indicated by "_st". However the Attach System using FactoryType to judge whether a vehicle attachable and they use "-1" to allow support APC attach vehicles like MHQ/T80res as well, so if editors wish to make a unit attachable, value different from -1 isn't recommended.

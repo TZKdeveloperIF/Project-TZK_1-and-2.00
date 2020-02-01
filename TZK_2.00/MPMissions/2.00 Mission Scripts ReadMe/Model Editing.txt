@@ -1,0 +1,15 @@
+De-binarize can use ODOL-Explorer or P3DEDIT. There are still some binarized models unable to de-binarize in this way, maybe a stronger tool in need.
+It's necessary to define CfgModels info in config for MLOD format model, make the class name same as the model (ignore the ".p3d") and define sections thus OFP could recoginze them. Those sections whose name same as preserved strings of OFP will perform unique as the strings defined in OFP while others can only be recognized by OFP but need to control by Editors using Animations, UserActions and EventHandlers combining with hiddenSelections and setObjectTexture.
+To binarize models normally, editors should add CfgModels info into binarize tool's CfgModels.hpp or config.cpp, and put the complete textures with correct path in the root directory of the binarize tool. Binarized ODOL format models have smaller file size, can be renamed freely and unnecessary to keep CfgModels info in config. Besides, only ODOL models can gain CfgMaterials effect while MLOD can't.
+
+
+Models edited by IF of TZK_2.00 packed in TZK_Objects\Model.
+- A10/Su25 add the after-burner effects transplanted from f15/su30.
+- C130 cargo proxy is increased to 60 in total, keep same with an12.
+- M1A1 is edited to make commander inside rotate synchronously with it's view direction.
+- M2A2 and CBT_M2A2 are edited to allow its commander-turret turn-available. However it seems their comTurret fixed with the turred and not allowed to rotate conclude from the appearance. M109 has a turn-available comTurret in edited model too.
+- M60-120S just combine M1A1's turret with M60's body and be used in Chinese version TZK missions.
+- T80/T80Res re-edit since IF just learnt how to edit models when developing TZK_2.00 thus they were low-quality in earlier versions TZK.
+- V80 add hit-points LOD in model thus its engine will stall when being hit. After having added the hit-points it's total HP doubled thus need to half the armor parameter in config.
+
+The way normal rotation of M1A1/M2A2 be defined can be learnt from models and config. If you have problems de-binarizing ODOL models of TZK you can mail IF anytime.

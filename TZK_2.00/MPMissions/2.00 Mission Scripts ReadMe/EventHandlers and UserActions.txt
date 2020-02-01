@@ -1,0 +1,13 @@
+There are two ways to define EventHandlers and Actions for units. XR missions use addEventHandler and addAction in CTI mission only. This is a good mode since all of them are defined in mission only and unnecessary to edit addons, which make the CTI missions independent from addons.
+However, EventHandlers and actions defined in AddOns' config in form of class EventHandlers/UserActions are better than added-in-mission form, thus TZK transplant many of them into TZK_Objects\config and add new there as well. This step quite unnecessary for actions if the script command "addAction" has enough parameters as in ARMA, but it hasn't in OFP.
+The UserActions has the "Radius" and "Condition" parameters so can work better than addAction in many situations, besides it won't create a bug like addAction that showing new-added actions in player's action list. Unfortunately "Heal/Repair" and "Rearm" can't be transplant into UA since the variable pointing to the caller of UA is unknown. "This" points to the vehicle the UA attaching to and "_this" is unmeaningful here. Surely it's possible to define the Heal and Rearm UA for all units used in CTI, but this is not a good solution.
+
+
+
+EH and UA defined in TZK_2.00 are re-writed in HPP files and won't be hard to read how they defined and work. Be aware of the "bool" variables used in "Condition" (e.g. bAfterBurner, MHQNearBy,etc), most of them will be defined/initilized in "Init" series scripts, and those bool used to fit Upgrades will be reset in Info\UpgState in both "Player" and "Server" folders. These bool can be initilized and be used when debugging UA in Mission-Editor.
+
+
+
+Only "Hit" and "Killed" EH are local while others are global. Editors must understand this before start editing with EH. Editors may learn how SpoofMissile and SpoofFlare work separately.
+
+TZK_1.10 added EH for server infantrys and vehicles thus they'll check whether need supply after having fired or been hit, and this setting raise the efficient of AI auto-supply.

@@ -1,0 +1,8 @@
+AddOns[]
+"AddOns[]" defines necessary addon for mission. Game will check addons' CfgPatches name and kick players lack of addons listed here in assign window.
+It's unnecessary to list all addons here if players without some critical addons can play normally.
+There widely exists wrong island addon requirement in C8 missions. Thus I suggest mission editors at least check the island-addon(s)-requirement in "Addons[]" list.
+
+
+Class Intel
+Edit briefingName and briefingDescription here. It's not recommended to change the resistanceWest, weather and data/time parameters. The reason date be set at Sept. 22th, the Autumnal Equinox, is that sun rise and fall at 6:00 and 18:00 on this day. And in Init.sqs, game time plus 6 hours for each kind of time(day, dusk, night, dawn) thus 11:00 is a proper time.

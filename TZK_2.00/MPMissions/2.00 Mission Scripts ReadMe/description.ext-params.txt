@@ -1,0 +1,10 @@
+valuesParam1
+
+valuesParam1 % 20 are 20 modes. It won't be hard to study how they defined. Edit them here and in Init.sqs.
+
+
+
+valuesParam2
+
+It is clearily to learn how valuesParam2 defined since they're wrote in form of carry system.
+TimeBoost added here as 8*4, the Time selection.

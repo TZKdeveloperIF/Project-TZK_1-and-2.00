@@ -1,0 +1,3 @@
+SQF is high efficiency. It's strongly recommend to use SQF optimizing CTI mission when editing scripts. Of course it'll be a huge project making CTI full of SQF but transfer those editing SQS into SQF may finally complete this idea someday step by step.
+
+However, SQF in OFP don't support "sleep" and "waituntil" function thus it's necessary to use SQS. Using SQS as a controller to ask SQF do dirty works maybe a good choice. SQF has a return value and it can be used to sort codes' executing.

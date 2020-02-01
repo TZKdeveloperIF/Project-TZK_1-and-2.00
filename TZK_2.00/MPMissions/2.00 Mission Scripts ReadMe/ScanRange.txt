@@ -1,0 +1,9 @@
+Parameters "irScan-" series define how vehicles scan. "irScanRange" can set the ScanRange as a constant, but combine "Min", "Max" and "EyeFactor" can make the ScanRange rely on the ViewDistance, which is a controllable parameter of CTI.
+For example, parameters below is the standard irScan- parameters of $5000 tanks in TZK:
+		irScanRangeMin = 500
+		irScanRangeMax = 4000
+		irScanToEyeFactor = 0.616
+The actual irScanRange is (irScanToEyeFactor * viewDistance), but the value is limited between [irScanRangeMin, irScanRangeMax], that is, if (irScanToEyeFactor * viewDistance) is less than irScanRangeMin, then irScanRange will be irScanRangeMin.
+
+
+TZK make all vehicles' ScanRange rely on ViewDistance by using irScanToEyeFactor. $5000 tanks' irScanToEyeFactor is 0.616, AT-gunship's is 0.75, $2000 tanks' is 1, other aircrafts' is 2, Art vehicles' is 3.

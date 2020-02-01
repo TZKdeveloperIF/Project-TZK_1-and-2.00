@@ -1,0 +1,3 @@
+class sensors
+
+gameEndType, teleport bridge and town-flag-change are defined here.

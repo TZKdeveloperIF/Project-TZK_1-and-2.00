@@ -1,0 +1,3 @@
+crCTI use busy to protect some process (like auto-supply, auto-mine, etc.) from Orders' command. TZK_2.00 insert the Temporary System whose priority higher than Order and lower than busy, make it available to ask AI do some Temporary work ignoring Order, and will auto-supply, auto-fire when working temporary.
+
+Old-fashioned busy-info-series array is named with group index. After having applied mutex to busy this is unnecessary any longer thus be canceled in TZK_2.00. This can make the Join System easier to design.

@@ -1,0 +1,3 @@
+If a vehicle has no weapons and no magazines in config, AI won't attack any longer even though they're equipped later in-game. Thus it's necessary to define magazines for them and remove it just when it's created.
+
+Aircrafts in TZK have the "SpoofMagazine" as magazine thus won't encounter this problem. Editors may check "CfgVehicles_Light_inherit.hpp" for more info.

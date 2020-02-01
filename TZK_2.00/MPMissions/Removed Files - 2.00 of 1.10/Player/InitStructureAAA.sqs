@@ -1,0 +1,11 @@
+; args: [_object, _type, _si]
+
+_structure = _this select 0
+_typeStructure = _this select 1
+_si = _this select 2
+
+
+_siEnemy = siEnemy select _si
+? siPlayer != _siEnemy : exit
+
+_structure addEventHandler ["IncomingMissile", {_this exec "Player\Event IncomingMissileToStructure.sqs"}]

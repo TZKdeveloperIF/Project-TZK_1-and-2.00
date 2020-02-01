@@ -1,0 +1,10 @@
+; args: [vehicle, type, si]
+
+_v = _this select 0
+
+? !(local _v) || !(alive _v) : exit
+? isNull player : exit
+_timestring = [] call funcGetTimeString 
+player GroupChat format ["Time : %2 , VEHICLE DAMAGE REPORT                           : %1", damage _v, _timestring]
+
+exit

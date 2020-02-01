@@ -1,0 +1,23 @@
+The marker with a bigger Item-order-number will cover those smaller. Thus it's recommended to set flags, texts(town name or income "-500/1000" or "Mission by ***"), exclamation marks first, then set vehicles' marker. The units' marker, mostly they're a dot, should be defined in the end. An example is that in 4.0- missions vehicles' marker sometimes cover units' yellow dot.
+
+It's recommended to transplant special Marker setting to TZK setting. TZK set 1935 markers and remain about 80 available markers for editors to fill with their special markers. The usage of TZK Missin.sqm Markers are listed below:
+0~2: Respawn position for West/East/GUER
+7: Purple text claimed info about TZK. It would be kind of editors to remain it for IF.
+20~39: flags for towns. 20 in total is enough for missions up till now since the most number of towns is 20 in Nogova. If editor wish to make a mission with more than 20 towns, it's necessary to add more flag markers for towns.
+40~69: Art red "x" markers for the Upgrade "Artillery Radar" to show possible players' vehicle position.
+70~99: "!" to show enemy position info. The 4.0 missions set them a quite large order which is different from TZK but maybe doesn't matter since the "!" marker is hollow.
+100~119: co0~co19 markers. If editor wish to add co, add their markers here plz.
+150~159: wp0~wp9 markers.
+195~199: impact point markers for mortar/howitzer/art vehicles
+200~399: vehicle markers for WEST.
+400~599: vehicle markers for EAST.
+600~799: vehicle markers for GUER.
+800~939: vehicle markers for CIV(motors and bikes in town).
+940~1011: worker markers for WEST/EAST. 2*3*12 in total.
+1013~1492: town unit markers. 2*20*12 in total. Need to extend if editor wish to make more than 20 towns.
+1012, 1493~1887: group unit markers. 2*18*11 in total.
+1888~1898: player unit markers. 11 in total.
+1899~1934: group leader markers. 2*18 in total.
+
+3~6, 8~19, 120~149, 160~194: Remain Markers for Editors. Fill them with your custom/special markers plz. If they're still not enough, you may use vehicles for GUER/CIV since ERS will have no more than 100 vehicles in total and so do CIV.
+BTW, the teleport bridge's destination is defined in markers. Teleport scripts need positions only thus it's unnecessary to use a vehicle to restore the postion, marker is enough and cheap.

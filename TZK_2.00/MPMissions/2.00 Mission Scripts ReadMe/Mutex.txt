@@ -1,0 +1,3 @@
+The "@" script command is quite useful. It can guarantee scripts using same mutex bool variable being executed one by one and protect critical designs need to work sequential.
+Most of these bool variables are named starting with "mutex" but this is unnecessary for OFP, however it's recommend for editing.
+Mutex bool variables mostly defined in Init series scripts especially in InitPublicVariables.

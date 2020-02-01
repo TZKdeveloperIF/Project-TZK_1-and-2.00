@@ -1,0 +1,5 @@
+Some model-changed units may need a base class to make sure model-replacing perfrom normally.
+
+Aircrafts need a base class to inherit. In base class its armor value must be low or its subclass won't be attacked by infantry or tank Machine Gun. This is strange but must be followed or aircraft will get free from MG. Accuracy need to be low in base class as well, and the subclass can define its accuracy as 1000. It seems that only in this way can the type of vehicle be recognized and attacked by MG (Editors may compare how C130/an12 defined in their original addon and in TZK config).
+
+class EventHandlers has 12 parameters and only need to redefine some of them, not all, when editing EH of subclass. But it's necessary to redefine all UserActions if wish to edit subclass's UA since the UA classes aren't its parameters, so do class Animations.

@@ -1,0 +1,10 @@
+- Simulation of vehicle
+
+Vehicles whose simulation is "Car" or "ship" can't shot missile thus must use script to create missile.
+Vehicles whose simulation is "Car" or "Motorcycle" will cause crash when they target objects while equipping weapons but no magazines, and it's possible to cause problem when they're rearming and aiming enemies.
+These are reasons why TZK set HMMWV/BRDM with MG/Virtual-Custom-Weapons like in its config.
+
+
+- Simulation of ammo
+
+Surely simulation will affect their performance. But set bullets' simulation to missile won't change theirs' characteristics too much but will allow them be shot by rocket launcher or even missile launcher with proxyShape.

@@ -1,0 +1,4 @@
+The type of variables able to publish/broadcast in OFP is quite limited. Array isn't support. Thus CTI use carry system to restore more than one numbers' info into one number varialbe then publish it.
+
+TZK set some of the carry as a constant in Init series scripts aims to make it easier to edit. The number in OFP scripts is single precision floating-point thus can't be too large (should be less than 16777216), so a PublicVariable large enough should be divided into two or more variables if wish to raise the carry.
+The carry should always more than infos' total numbers. For example, we use decimal system which can restore 0~9 in each digit.

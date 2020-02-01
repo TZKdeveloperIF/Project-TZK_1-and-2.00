@@ -1,0 +1,42 @@
+; args: [shell, vehicle]
+
+_Missile =  _this select 0
+;? !(local _Missile) : exit
+;? !(local LocalServerObject) : exit
+? !(local _Missile) && !(local LocalServerObject) : exit
+
+_Type= typeOf _Missile
+
+_Upos= GetPos _Missile;
+#loop
+? _Type != typeOf _Missile : goto "end"
+?(not alive _Missile) : goto "end"
+_Upos= GetPos _Missile;
+~0.01
+goto "loop"
+
+#End
+
+Player Sidechat "Impact"
+? !(local LocalServerObject) : exit
+
+
+_ux=_Upos Select 0;
+_uy=_Upos Select 1;
+_uz=_Upos Select 2;
+
+_count = 0
+_k = 100
+_k2 = _k/2
+
+#start
+_count = _count + 1
+_Rndx = Random _k
+_Rndx2 = _Rndx -_k2
+_Rndy = Random _k
+_Rndy2 = _Rndy -_k2
+_LaserGuidedBomb="TimeBomb" CreateVehicle [_ux+_Rndx2,_uy+_Rndy2,0]
+~0.3
+?(_count > 40):exit
+goto "start"
+exit

@@ -1,0 +1,5 @@
+class vehicles
+
+Flagcarriers of towns are defined here. Their "Init" parameter define the town name and income. It's not recommended to edit the towns' init side unless editor has made a new mods for TG.
+
+UAZG in res towns are defined here as well. TZK deleted all of them because they can't be added into UnitMatrix and un-repairable.

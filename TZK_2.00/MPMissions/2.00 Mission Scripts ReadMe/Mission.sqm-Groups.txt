@@ -1,0 +1,6 @@
+class Groups
+
+This class defines existed groups in mission including playerable groups(WEST, EAST, CIV), TG groups(WEST, EAST, RES), RES patrol groups(6~8 in common missions) and some functional groups used in CTI mission. UpdateWeather, LocalServerObject and RepairableObject are defined in these functional groups. Those repairable teleport bridge's id is defined in InitRepairableObjects.sqs started in form of Init of a group.
+
+TZK_1.01 added temporary AA vehicle groups who will execute the UpdateAASystem.sqs. Spec2~Spec9 are added as well for more players to CIV. It's unnecessary to remove them in NT missions unless more than 50 other CIV groups were used.
+TZK_2.00 added Join groups and Worker groups who can be found by searching "groupJoin" and "groupWorker". Don't remove them when editing missions basing on TZK_2.00.

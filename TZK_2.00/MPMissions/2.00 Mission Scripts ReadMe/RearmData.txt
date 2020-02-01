@@ -1,0 +1,7 @@
+The variable "RearmData" is used to restore units' weapons and magazines for rearm. However it's an array thus unable to broadcast and must be well-defined locally.
+
+TZK_1.10 added the function "EditRearmData" to edit it, and the Upgrade "Gunship Rockets" make good use of it. It can be a reference for editors.
+
+TZK_2.00 re-write all Equip scripts in "Common" folder, pre-defined the re-equip magazines and weapons and use them to re-write data in RearmData, make the re-equip correctly restored in RearmData. And the Upgrade of helicopters rockets and RedTop make good use of this design as well.
+
+It necessary to point out that the EquipTown- scripts, which aims to ban new-spawn town vehicles' fire in 15 secs, set the delay after re-equip the vehicles' weapons. Client will error if delay before re-equip the weapons, unknown why. It would be kind of editors mail IF while finding out the reason.

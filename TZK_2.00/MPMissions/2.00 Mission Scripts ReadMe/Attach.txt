@@ -1,0 +1,8 @@
+There are bugs probably happen when set position or velocity of TANK/APC in land. Possibly the problem is of the simulation "tank". It's common to see attached tanks/support APCs stuck while they're in a quite large velocity thus their engine sounds noisy.
+
+Editors may compare the attach in XR, TZK_1.01 and TZK_1.10. Attach in 1.10 is completed, half-completed with unable to "lift" vehicle in 1.01 but won't struck. The way avoid attached vehicle struck (i.e. the invalid of setPos/setVelocity) is to move vehicles over sea then move back, but details are important too.
+Delay: necessary for attach. It can be short to 0.01s but can't be zero.
+Z-velocity: necessary if you wish Attach can "lift" vehicles. 2 isn't enough and TZK_1.10 use 3.
+Object nearby: necessary for "lift" as well. Attached vehicle will be lift if there're some objects near the position it'll be move back. Well the tug can always perfrom this character thus need not to concern.
+
+The attach type is sorted by factory type. In XR none tug can attach vehicles whose factory type is stShip and TZK fixed this. Editors should know about this.

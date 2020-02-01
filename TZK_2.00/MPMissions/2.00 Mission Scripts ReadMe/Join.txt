@@ -1,0 +1,6 @@
+TZK_2.00 added the Join System allowing units transfered among groups in the same side.
+
+It's hard to design a complete Join System since the group changed so do the group index "_gi" which widely used in AI-controlling scripts. However IF managed to finish it. Editors must be aware about this if wish to modify it. A good news is that busy and temporary info arrays aren't named by "_gi" any longer, otherwise it'll cost more times to optimize the Join System to fit this.
+
+
+Delete the last unit in a group via deleteVehicle won't delete the group variable while Join will. So the leader of "groupJoin" MUST KEEP ALIVE or the groupJoin will disappear if all its members join other groups. The reason keeping groupTemp leader alive is same.

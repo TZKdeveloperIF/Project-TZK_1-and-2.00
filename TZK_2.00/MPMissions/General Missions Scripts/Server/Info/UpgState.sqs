@@ -1,0 +1,26 @@
+; args: [si, upg, state]
+
+_si = _this select 0
+_upg = _this select 1
+_state = _this select 2
+
+_value = mtUpgState
+_value = _value + TotalInfoTypes*_upg
+_value = _value + (TotalInfoTypes*100)*_state
+_value = _value + (TotalInfoTypes*100*3)*_si
+
+[_value] exec "Server\Info\SendInfoMsg.sqs"
+
+? upgCCdistance == _upg && _state == 2 : CCdistMax set [_si, distMaxCCUpgraded]
+
+? upgGunshipRocket == _upg && _state == 2 : if (_si==si0) then { {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 0)); {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 1));  {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipAT select 0)); {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipAT select 1)); {_t = _x; {[_x, ["ZuniLauncher38"], ["ZuniLauncher38"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select _t) } forEach TransportHeliW } else { {[_x, ["Rocket57x40Kamov_xj200"], ["Rocket57x40Kamov_xj200"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 2)); {[_x, ["Rocket57x64"], ["Rocket57x64"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipOrigin select 3)); {[_x, ["Rocket57x40Kamov_xj200"], ["Rocket57x40Kamov_xj200"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipAT select 2)); {[_x, ["Rocket57x64"], ["Rocket57x64"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select (typesGunshipAT select 3)); {_t = _x; {[_x, ["Rocket57x192"], ["Rocket57x192"], false] call funcEditRearmData} forEach ((UnitMatrix select _si) select _t) } forEach TransportHeliE }
+
+? ((upgMatrix select _si) select upgWorkers) == 2: maxWorkers set [_si, 20]
+
+? ((upgMatrix select _si) select upgRedTopRange) == 2: {   {   _unit = _x; _rearmData = _unit call funcGetRearmData; _w = ["RedTop_40_xj200"]+(_rearmData select 0)-["RedTop_26_xj200","RedTop_30_xj200"]; _m = ["RedTop_40_xj200"]+(_rearmData select 1)-["RedTop_26_xj200","RedTop_30_xj200"];   if (((upgMatrix select _si) select upgRedTopMagazines) == 2) then {_m = _m + ["RedTop_40_xj200"]};    [_unit, _w, _m, true] call funcEditRearmData   } forEach ( (UnitMatrix select _si) select _x )   } forEach (vRedTop select _si)
+
+? ((upgMatrix select _si) select upgRedTopMagazines) == 2: {   {   _unit = _x; _rearmData = _unit call funcGetRearmData; _w = _rearmData select 0; _mEx = (_rearmData select 1) - ["RedTop_26_xj200","RedTop_30_xj200","RedTop_40_xj200"]; _m = (_rearmData select 1) - _mEx; _m = _m + (_rearmData select 1);   [_unit, _w, _m, true] call funcEditRearmData   } forEach ( (UnitMatrix select _si) select _x )   } forEach (vRedTop select _si)
+
+? ((upgMatrix select _si) select upgPlaneAfterBurner) == 2: if (isNull player) then {exit} else { if (_si == siPlayer) then {bAfterBurner = true} }
+
+? ((upgMatrix select _si) select upgSpoofMissile) == 2: if (isNull player) then {exit} else { if (_si == siPlayer) then {bSpoofMissile = true} }
